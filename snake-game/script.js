@@ -58,7 +58,7 @@ function drawCellBody(ctx, x, y, color) {
     ctx.drawImage(img,x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
     /*
     option for snake body pattern
-    
+
     var ptrn = ctx.createPattern(img,'repeat');
     ctx.fillStyle = ptrn;
     ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
@@ -78,6 +78,8 @@ function draw() {
             drawCellBody(ctx,snake1.body[i].x , snake1.body[i].y, snake1.color);
         }
         drawApple(ctx, apple.position.x, apple.position.y);
+        let score = document.getElementById("score");
+        score.innerText = snake1.score;
         /*
         drawScore(snake1);
         let scoreBoard = document.getElementById("score1Board");
