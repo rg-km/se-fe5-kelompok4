@@ -160,14 +160,22 @@ function teleport(snake) {
 }
 
 function eat(snake, apples) {
+  let audio = new Audio("/assets/sound/apple-bite.ogg");
   for (let i = 0; i < apples.length; i++) {
     let apple = apples[i];
     if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
       apple.position = initPosition();
       snake.body.push({ x: snake.head.x, y: snake.head.y });
       score++;
+      audio.play();
     }
   }
+}
+
+// struglle to play this function exactly one time
+function lvlUpAudio() {
+  var audio = new Audio("/assets/sound/level_up.mp3");
+  audio.play();
 }
 
 function checkState() {
