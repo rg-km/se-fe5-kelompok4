@@ -18,6 +18,19 @@ let health = 3;
 let score = 0;
 let level = 1;
 
+const FIRST_WALL = {
+  x: 0,
+  y: 0,
+  w: 600,
+  h: 20,
+};
+const SECOND_WALL = {
+  x: 50,
+  y: 400,
+  w: 300,
+  h: 20,
+};
+
 function initPosition() {
   return {
     x: Math.floor(Math.random() * WIDTH),
@@ -127,6 +140,7 @@ function draw() {
     }
 
     drawUI(snake);
+    drawWall(ctx);
   }, REDRAW_INTERVAL);
 }
 
@@ -156,28 +170,60 @@ function eat(snake, apples) {
   }
 }
 
+function checkState() {
+  if (health < 1) {
+    var audio = new Audio("/assets/sound/game-over.mp3");
+    audio.play();
+    alert("Game over");
+    snake = initSnake();
+    health = 3;
+    level = 1;
+    score = 0;
+    speed = 200;
+    initGame();
+  } else {
+    snake.body = [snake.body[0]];
+  }
+}
+
+function checkWall(snake, rect) {
+  if (level > 1) {
+    if (Math.abs(snake.head.y - FIRST_WALL.y) === FIRST_WALL.y) {
+      decreaseHealth();
+      checkState();
+    }
+  }
+  if (level > 2) {
+    // if ()
+  }
+}
+
 function moveLeft(snake) {
   snake.head.x--;
   teleport(snake);
   eat(snake, apples);
+  checkWall(snake);
 }
 
 function moveRight(snake) {
   snake.head.x++;
   teleport(snake);
   eat(snake, apples);
+  checkWall(snake);
 }
 
 function moveDown(snake) {
   snake.head.y++;
   teleport(snake);
   eat(snake, apples);
+  checkWall(snake);
 }
 
 function moveUp(snake) {
   snake.head.y--;
   teleport(snake);
   eat(snake, apples);
+  checkWall(snake);
 }
 
 function increaseHealth() {
@@ -189,8 +235,10 @@ function increaseHealth() {
 }
 
 function decreaseHealth() {
+  health--;
   const container = document.querySelector(".healthContainer");
-  container.removeChild(container.lastElementChild);
+  console.log(health);
+  if (health > 0) container.removeChild(container.lastElementChild);
 }
 
 function checkCollision(snakes) {
@@ -209,20 +257,9 @@ function checkCollision(snakes) {
     }
   }
   if (isCollide) {
-    health--;
-    decreaseHealth();
     // Restart Game If Health is 0
-    if (health === 0) {
-      var audio = new Audio("/assets/sound/game-over.mp3");
-      audio.play();
-      alert("Game over");
-      snake = initSnake();
-      health = 3;
-      level = 1;
-      score = 0;
-    } else {
-      snake.body = [snake.body[0]];
-    }
+    decreaseHealth();
+    checkState();
   }
   return isCollide;
 }
@@ -281,6 +318,21 @@ document.addEventListener("keydown", function (event) {
     turn(snake, DIRECTION.DOWN);
   }
 });
+
+function drawWall(ctx) {
+  if (level > 1) {
+    ctx.beginPath();
+    ctx.rect(FIRST_WALL.x, FIRST_WALL.y, FIRST_WALL.w, FIRST_WALL.h);
+    ctx.fillStyle = "red";
+    ctx.fill();
+  }
+  if (level > 2) {
+    ctx.beginPath();
+    ctx.rect(SECOND_WALL.x, SECOND_WALL.y, SECOND_WALL.w, SECOND_WALL.h);
+    ctx.fillStyle = "red";
+    ctx.fill();
+  }
+}
 
 function initGame() {
   move(snake);
