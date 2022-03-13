@@ -168,6 +168,9 @@ function eat(snake, apples) {
       snake.body.push({ x: snake.head.x, y: snake.head.y });
       score++;
       audio.play();
+      if (score % 5 == 0 && score <= 25 && score != 0) {
+        lvlUpAudio();
+      }
     }
   }
 }
@@ -176,6 +179,7 @@ function eat(snake, apples) {
 function lvlUpAudio() {
   var audio = new Audio("/assets/sound/level_up.mp3");
   audio.play();
+  alert(`Kamu naik ke level ${level + 1}`);
 }
 
 function checkState() {
