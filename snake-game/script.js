@@ -9,7 +9,7 @@ const DIRECTION = {
     UP: 2,
     DOWN: 3,
 }
-const MOVE_INTERVAL = 200; // change this value to control snake speed (lower much faster)
+let MOVE_INTERVAL = 200; // change this value to control snake speed (lower much faster)
 
 function initPosition() {
     return {
@@ -80,6 +80,7 @@ function draw() {
         drawApple(ctx, apple.position.x, apple.position.y);
         let score = document.getElementById("score");
         score.innerText = snake1.score;
+        level(snake1);
         /*
         drawScore(snake1);
         let scoreBoard = document.getElementById("score1Board");
@@ -87,7 +88,40 @@ function draw() {
             MOVE_INTERVAL -=150; 
             console.log("level bertambah")
         }*/
+        console.log(REDRAW_INTERVAL);
     }, REDRAW_INTERVAL);
+}
+
+function level(snake) {
+    
+   let lvl = document.getElementById("lvl");
+   let speed = document.getElementById("speed");
+   if (snake.score < 5) {
+       MOVE_INTERVAL = 200;
+       lvl.innerText = 1;
+       speed.innerText = 40;
+   } 
+   else if (snake.score < 10) {
+        MOVE_INTERVAL = 160
+        lvl.innerText = 2;
+        speed.innerText = 80;
+   } 
+   else if (snake.score < 15) {
+        MOVE_INTERVAL = 120
+        lvl.innerText = 3;
+        speed.innerText = 120;
+   } 
+   else if (snake.score < 20) {
+        MOVE_INTERVAL = 80
+        lvl.innerText = 4;
+        speed.innerText = 160;
+   } 
+   else if (snake.score < 25) {
+        MOVE_INTERVAL = 40
+        lvl.innerText = 5;
+        speed.innerText = 200;
+   }
+   console.log(MOVE_INTERVAL);
 }
 
 function teleport(snake) {
@@ -111,7 +145,6 @@ function eat(snake, apple) {
         snake.score++;
         //this
         snake.body.push({x: snake.head.x, y: snake.head.y});
-        console.log(`${snake.head.x, snake.head.y}`);
     }
 }
 
