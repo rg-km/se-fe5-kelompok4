@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SE FE-5 Kelompok 4</title>
+    <!-- Style -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body onload="draw();">
+    <img id="snakeHead" src="/assets/image/head.png" style="display: none" />
+    <img id="snakeBody" src="/assets/image/body.png" style="display: none" />
+    <img id="apple" src="/assets/image/apple.png" style="display: none" />
+    <h1>Snake Game</h1>
+    <div class="boardContainer">
+      <div class="uiContainer">
+        <div class="ui">
+          <div class="health">
+            <p>Health</p>
+            <div class="healthContainer"></div>
+          </div>
+          <p id="level">Level <span></span></p>
+          <p id="score">Score <span></span></p>
+          <p id="speed">Speed <span></span>ms</p>
+        </div>
+        <canvas
+          id="snakeBoard"
+          width="600"
+          height="600"
+          style="border: 1px solid #000000"
+        ></canvas>
+      </div>
+    </div>
+    <!-- Script -->
+    <script type="text/javascript" src="./assets/js/script.js"></script>
+  </body>
+</html>
