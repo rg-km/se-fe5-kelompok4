@@ -273,7 +273,7 @@ function increaseHealth() {
   const container = document.querySelector(".healthContainer");
   const health = document.createElement("img");
   health.classList.add("healthIcon");
-  health.src = "/assets/image/health.png";
+  health.src = "./assets/image/health.png";
   container.appendChild(health);
 }
 
