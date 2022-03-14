@@ -18,18 +18,27 @@ let health = 3;
 let score = 0;
 let level = 1;
 
-const FIRST_WALL = {
+let wall = [ {
   x: 0,
   y: 0,
   w: 600,
-  h: 20,
-};
-const SECOND_WALL = {
-  x: 50,
+  h: 20
+ }, {
+  x: 64,
   y: 400,
-  w: 300,
-  h: 20,
-};
+  w: 225,
+  h: 20
+ }, {
+  x: 400,
+  y: 100,
+  w: 200,
+  h: 20
+ }, {
+  x: 100,
+  y: 100,
+  w: 200,
+  h: 20
+ }]
 
 function initPosition() {
   return {
@@ -199,14 +208,36 @@ function checkState() {
 }
 
 function checkWall(snake, rect) {
+  
   if (level > 1) {
-    if (Math.abs(snake.head.y - FIRST_WALL.y) === FIRST_WALL.y) {
+    if (Math.abs(snake.head.y - wall[0].y) === wall[0].y) {
       decreaseHealth();
       checkState();
     }
   }
   if (level > 2) {
-    // if ()
+    for (let i = Math.sqrt(wall[1].x) - 5; i < Math.sqrt(wall[1].w) ; i++) {
+      if (snake.head.x === i && snake.head.y === Math.sqrt(wall[1].y)) {
+        decreaseHealth();
+        checkState();
+      }
+    }
+  }
+  if (level > 3) {
+    for (let i = 20; i <= 29 ; i++) {
+      if (snake.head.x === i && snake.head.y === (wall[2].y / 20)) {
+        decreaseHealth();
+        checkState();
+      }
+    }
+  }
+  if (level > 4) {
+    for (let i = 5; i < 15 ; i++) {
+      if (snake.head.x === i && snake.head.y === (wall[3].y / 20)) {
+        decreaseHealth();
+        checkState();
+      }
+    }
   }
 }
 
@@ -334,14 +365,26 @@ document.addEventListener("keydown", function (event) {
 function drawWall(ctx) {
   if (level > 1) {
     ctx.beginPath();
-    ctx.rect(FIRST_WALL.x, FIRST_WALL.y, FIRST_WALL.w, FIRST_WALL.h);
+    ctx.rect(wall[0].x, wall[0].y, wall[0].w, wall[0].h);
     ctx.fillStyle = "red";
     ctx.fill();
   }
-  if (level > 2) {
+  if (level >2) {
     ctx.beginPath();
-    ctx.rect(SECOND_WALL.x, SECOND_WALL.y, SECOND_WALL.w, SECOND_WALL.h);
-    ctx.fillStyle = "red";
+    ctx.rect(wall[1].x, wall[1].y, wall[1].w, wall[1].h);
+    ctx.fillStyle = "blue";
+    ctx.fill();
+  }
+  if (level > 3) {
+    ctx.beginPath();
+    ctx.rect(wall[2].x, wall[2].y, wall[2].w, wall[2].h);
+    ctx.fillStyle = "green";
+    ctx.fill();
+  }
+  if (level > 4) {
+    ctx.beginPath();
+    ctx.rect(wall[3].x, wall[3].y, wall[3].w, wall[3].h);
+    ctx.fillStyle = "black";
     ctx.fill();
   }
 }
