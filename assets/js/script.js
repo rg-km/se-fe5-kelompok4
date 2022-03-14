@@ -169,7 +169,7 @@ function teleport(snake) {
 }
 
 function eat(snake, apples) {
-  let audio = new Audio("/assets/sound/apple-bite.ogg");
+  let audio = new Audio("./assets/sound/apple-bite.ogg");
   for (let i = 0; i < apples.length; i++) {
     let apple = apples[i];
     if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
@@ -186,14 +186,14 @@ function eat(snake, apples) {
 
 // struglle to play this function exactly one time
 function lvlUpAudio() {
-  var audio = new Audio("/assets/sound/level_up.mp3");
+  var audio = new Audio("./assets/sound/level_up.mp3");
   audio.play();
   alert(`Kamu naik ke level ${level + 1}`);
 }
 
 function checkState() {
   if (health < 1) {
-    var audio = new Audio("/assets/sound/game-over.mp3");
+    var audio = new Audio("./assets/sound/game-over.mp3");
     audio.play();
     alert("Game over");
     snake = initSnake();
